@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Notifications & Banners</title>
+
+    <!-- Link to the external CSS file -->
+    <link rel="stylesheet" href="style.css">
+
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="container">
+        <h1>Luxury Notification & Banner System</h1>
+
+        <div class="form-container">
+            <div class="notification-form">
+                <h2>Notification</h2>
+                <input type="text" id="notif-title" placeholder="Title" />
+                <textarea id="notif-message" rows="3" placeholder="Message"></textarea>
+                <input type="url" id="notif-image" placeholder="Image URL" />
+                <select id="notif-type">
+                    <option value="info">Info</option>
+                    <option value="success">Success</option>
+                    <option value="error">Error</option>
+                </select>
+                <input type="number" id="notif-duration" placeholder="Duration (ms)" value="4000" />
+                <button onclick="createNotification()">Show Notification</button>
+            </div>
+
+            <div class="banner-form">
+                <h2>Banner</h2>
+                <textarea id="banner-message" rows="3" placeholder="Banner message"></textarea>
+                <input type="url" id="banner-image" placeholder="Image URL" />
+                <input type="url" id="banner-link" placeholder="Link URL" />
+                <input type="number" id="banner-duration" placeholder="Duration (ms)" value="6000" />
+                <button onclick="createBanner()">Show Banner</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JavaScript to handle notifications and banners -->
+    <script src="script.js"></script>
+</body>
+</html>
