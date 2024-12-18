@@ -3,46 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modern Notifications & Banners</title>
-
-    <!-- Link to the external CSS file -->
-    <link rel="stylesheet" href="style.css">
-
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <title>Kaif's Web Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+        }
+        input, button, textarea {
+            width: 100%;
+            margin-top: 10px;
+            padding: 10px;
+            font-size: 16px;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-
     <div class="container">
-        <h1>Luxury Notification & Banner System</h1>
-
-        <div class="form-container">
-            <div class="notification-form">
-                <h2>Notification</h2>
-                <input type="text" id="notif-title" placeholder="Title" />
-                <textarea id="notif-message" rows="3" placeholder="Message"></textarea>
-                <input type="url" id="notif-image" placeholder="Image URL" />
-                <select id="notif-type">
-                    <option value="info">Info</option>
-                    <option value="success">Success</option>
-                    <option value="error">Error</option>
-                </select>
-                <input type="number" id="notif-duration" placeholder="Duration (ms)" value="4000" />
-                <button onclick="createNotification()">Show Notification</button>
-            </div>
-
-            <div class="banner-form">
-                <h2>Banner</h2>
-                <textarea id="banner-message" rows="3" placeholder="Banner message"></textarea>
-                <input type="url" id="banner-image" placeholder="Image URL" />
-                <input type="url" id="banner-link" placeholder="Link URL" />
-                <input type="number" id="banner-duration" placeholder="Duration (ms)" value="6000" />
-                <button onclick="createBanner()">Show Banner</button>
-            </div>
-        </div>
+        <h1>Kaif's Web Assistant</h1>
+        <p>Type your question below to learn more about Kaif:</p>
+        <textarea id="userInput" rows="4" placeholder="Ask about Kaif..."></textarea>
+        <button onclick="getAssistantResponse()">Ask</button>
+        <h3>Response:</h3>
+        <p id="response"></p>
     </div>
 
-    <!-- JavaScript to handle notifications and banners -->
-    <script src="script.js"></script>
+    <script>
+        const OPENAI_API_KEY = "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";
+
+        async function getAssistantResponse() {
+            const userInput = document.getElementById('userInput').value;
+            const responseElement = document.getElementById('response');
+
+            responseElement.textContent = "Thinking...";
+
+            try {
+                const response = await fetch("https://api.openai.com/v1/completions", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        "Authorization": `Bearer ${OPENAI_API_KEY}`
+                    },
+                    body: JSON.stringify({
+                        model: "text-davinci-003",
+                        prompt: `About Kaif: ${userInput}`,
+                        max_tokens: 100,
+                    }),
+                });
+
+                const data = await response.json();
+                responseElement.textContent = data.choices[0]?.text.trim() || "No response from the assistant.";
+            } catch (error) {
+                responseElement.textContent = "Error communicating with the assistant.";
+                console.error(error);
+            }
+        }
+    </script>
 </body>
 </html>
